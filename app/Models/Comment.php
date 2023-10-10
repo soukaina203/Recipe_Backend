@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id',        'name',        'email',        'password',        'photo',        'country',        'city',
+        'id',        'user_id',        'recipe_id',        'content',
     ];
 }
