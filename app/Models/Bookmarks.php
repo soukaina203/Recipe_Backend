@@ -10,6 +10,8 @@ class Bookmarks extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',        'recipe_id',        'user_id',
+        'id',        'recipe_id',
+           'user_id',
+
     ];
 }

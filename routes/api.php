@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\authController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -22,17 +23,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
+// });
+Route::post('signup',[authController::class,'signup']);
+Route::post('login',[authController::class,'login']);
+Route::post('logout',[authController::class,'logout']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::resource('Users', UserController::class)->except(['create', 'edit']);
+
+    Route::resource('Recipes', RecipeController::class)->except(['create', 'edit']);
+    Route::resource('Categories', CategoryController::class)->except(['create', 'edit']);
+    Route::resource('Bookmarkss', BookmarksController::class)->except(['create', 'edit']);
+    Route::resource('Comments', CommentController::class)->except(['create', 'edit']);
+
+    Route::resource('Ratings', RatingController::class)->except(['create', 'edit']);
+    Route::resource('Ingredients', IngredientController::class)->except(['create', 'edit']);
+    Route::resource('Recipe_ingredients', Recipe_ingredientController::class)->except(['create', 'edit']);
 });
-
-Route::resource('Users', UserController::class)->except(['create', 'edit']);
-
-Route::resource('Recipes', RecipeController::class)->except(['create', 'edit']);
-Route::resource('Categorys', CategoryController::class)->except(['create', 'edit']);
-Route::resource('Bookmarkss', BookmarksController::class)->except(['create', 'edit']);
-Route::resource('Comments', CommentController::class)->except(['create', 'edit']);
-
-Route::resource('Ratings', RatingController::class)->except(['create', 'edit']);
-Route::resource('Ingredients', IngredientController::class)->except(['create', 'edit']);
-Route::resource('Recipe_ingredients', Recipe_ingredientController::class)->except(['create', 'edit']);
