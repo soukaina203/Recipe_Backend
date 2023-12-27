@@ -12,7 +12,11 @@ class User extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'id',        'name',        'email',        'password',        'photo',
-               'country',        'city',
+        'id',        'name',
+        'email',
+        'password',
+        'photo',
+        'country',
+        'city',
     ];
 }

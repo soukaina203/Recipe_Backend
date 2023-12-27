@@ -18,6 +18,7 @@ class Recipe extends Model
         'type',
         'photo',
         'category_id',
-        'user_id'
+        'user_id',
+        'cooking_time'
     ];
 }

@@ -29,16 +29,19 @@ use Illuminate\Support\Facades\Route;
 Route::post('signup',[authController::class,'signup']);
 Route::post('login',[authController::class,'login']);
 Route::post('logout',[authController::class,'logout']);
+Route::resource('Users', UserController::class)->except(['create', 'edit']);
+Route::resource('Categories', CategoryController::class)->except(['create', 'edit']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('Recipes/FilteredRecipes', [RecipeController::class,'FilteredRecipes']);
 
-    Route::resource('Users', UserController::class)->except(['create', 'edit']);
-
+    Route::post('Users/img/{id}', [UserController::class,'uploadImg']);
     Route::resource('Recipes', RecipeController::class)->except(['create', 'edit']);
-    Route::resource('Categories', CategoryController::class)->except(['create', 'edit']);
+    Route::post('Recipes/img', [RecipeController::class,'uploadImg']);
+    Route::get('Recipes/search/{title}', [RecipeController::class,'SearchRecipe']);
+    // Route::post('Users/filter', [UserController::class,'filter']);
     Route::resource('Bookmarkss', BookmarksController::class)->except(['create', 'edit']);
     Route::resource('Comments', CommentController::class)->except(['create', 'edit']);
-
     Route::resource('Ratings', RatingController::class)->except(['create', 'edit']);
     Route::resource('Ingredients', IngredientController::class)->except(['create', 'edit']);
     Route::resource('Recipe_ingredients', Recipe_ingredientController::class)->except(['create', 'edit']);
